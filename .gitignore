@@ -1,0 +1,91 @@
+## ASP.NET Core specific
+bin/
+obj/
+appsettings*.json
+
+## User-specific files
+*.rsuser
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.dbmdl
+*.jfm
+*.db
+*.ldf
+*.mdf
+.vs/
+.vscode/
+*.opendb
+*.closedb
+
+## Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Nn]uget/
+packages/
+*.nupkg
+*.snupkg
+*.vsix
+
+## Tooling
+_ReSharper*/
+_TeamCity*
+*.dotCover
+*.userprefs
+*.idea/
+*.swp
+*.swo
+*.sln.docstates
+
+## Project files
+*.sln
+*.suo
+*.cache
+*.csproj.user
+*.vbproj.user
+*.tmp_proj
+*.pidb
+*.user
+*.userosscache
+*.sln.docstates
+*.dbmdl
+*.jfm
+
+## Miscellaneous
+.DS_Store
+Thumbs.db
+*.dbmdl
+*.pfx
+*.publishsettings
+node_modules/
+bower_components/
+
+## Logs and databases
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.accdb
+*.mdf
+*.ldf
+*.ndf
+
+## Environment files
+.env
+.env.local
+.env.*.local
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
