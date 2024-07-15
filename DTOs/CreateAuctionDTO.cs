@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 public class CreateAuctionDTO
 {
     [Required]
-    public string Status { get; set; }
-    [Required]
     public string Make { get; set; }
     [Required]
     public string Model { get; set; }
