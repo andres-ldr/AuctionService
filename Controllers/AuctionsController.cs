@@ -62,7 +62,7 @@ public class AuctionsController : ControllerBase
         // Publish to RabbitMQ
         var newAuction = _mapper.Map<AuctionDTO>(auction);
         await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
-        
+
         // Save to DB
         var res = await _context.SaveChangesAsync() > 0;
 
@@ -84,9 +84,13 @@ public class AuctionsController : ControllerBase
         auction.Item.Color = auctionDTO.Color ?? auction.Item.Color;
         auction.Item.Mileage = auctionDTO.Mileage ?? auction.Item.Mileage;
 
+        // Publish to RabbitMQ
+        await _publishEndpoint.Publish(_mapper.Map<AuctionUpdated>(auction));
+
+        // Save to DB
         var res = await _context.SaveChangesAsync() > 0;
 
-        if (!res) return Ok();
+        if (res) return Ok();
 
         return BadRequest("Problem saving changes");
     }
@@ -98,7 +102,11 @@ public class AuctionsController : ControllerBase
 
         if (auction == null) return NotFound();
 
+
         _context.Remove(auction);
+
+        // Publish to RabbitMQ
+        await _publishEndpoint.Publish<AuctionDeleted>(new { Id = auction.Id.ToString() });
 
         var res = await _context.SaveChangesAsync() > 0;
 
