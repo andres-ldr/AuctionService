@@ -41,13 +41,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 {
     options.Authority = builder.Configuration["IdentityServiceUrl"];
     options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters.ValidateAudience = false;
     options.TokenValidationParameters.NameClaimType = "username";
 });
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseAuthentication(); // Add this line to enable authentication before authorization
+app.UseAuthentication(); // Add this line to enable authentication before authorization. IT IS IMPORTANT TO ADD THIS LINE BEFORE app.UseAuthorization()
 app.UseAuthorization();
 
 app.MapControllers();
