@@ -81,7 +81,7 @@ public class AuctionsController : ControllerBase
 
         if (auction == null) return NotFound();
 
-        if(auction.Seller != User.Identity.Name) return Forbid();
+        if (auction.Seller != User.Identity.Name) return Forbid();
 
         auction.Item.Make = auctionDTO.Make ?? auction.Item.Make;
         auction.Item.Model = auctionDTO.Model ?? auction.Item.Model;
@@ -108,7 +108,7 @@ public class AuctionsController : ControllerBase
 
         if (auction == null) return NotFound();
 
-        if(auction.Seller != User.Identity.Name) return Forbid();
+        if (auction.Seller != User.Identity.Name) return Forbid();
 
         _context.Remove(auction);
 
