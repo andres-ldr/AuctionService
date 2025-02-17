@@ -51,6 +51,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     options.TokenValidationParameters.NameClaimType = "username";
 });
 
+builder.Services.AddGrpc(); // to add GRPC
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,6 +60,7 @@ app.UseAuthentication(); // Add this line to enable authentication before author
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<GrpcAuctionService>(); // To add the grpc service 
 
 try
 {
