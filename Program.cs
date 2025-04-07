@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using AuctionService.Data;
 using AuctionService;
 using MassTransit;
+using Npgsql;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,13 +64,13 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGrpcService<GrpcAuctionService>(); // To add the grpc service 
 
-try
-{
-    DbInitializer.InitDb(app);
-}
-catch (Exception e)
-{
-    Console.WriteLine(e);
-}
+// Retry to run the DB on error
+var retryPolicy = Policy
+    .Handle<NpgsqlException>()
+    .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(5));
+
+retryPolicy.ExecuteAndCapture(() => DbInitializer.InitDb(app));
+
+
 
 app.Run();
